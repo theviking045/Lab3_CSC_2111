@@ -1,19 +1,88 @@
 #include "Password.h"
-using CSC2110::ListArrayIterator;
+using namespace CSC2110;
 
 #include <iostream>
 using namespace std;
 
+Password::Password()
+{
+	String* word = new String;
+	String* curr_word = new String;
+	String* word_guess = new String;
+    ListArray<String>* all_words = new ListArray<String>();
+	ListArray<String>* viable_words = new ListArray<String>();
+}
 
+int Password::getNumMatches(String* curr_word, String* word_guess)
+{
+	int counter = 0;
+	for (int i = 0; i < len; i++)
+	{
+		if (curr_word->text[i] == word_guess->text[i])
+			++counter;
+	}
+	return counter;
+}
 
+Password::~Password()
+{
+	ListArrayIterator<String>* iterate = all_words->iterator();
+	while(iterate->hasNext())
+	{
+		String* temp = iterate->next();
+		delete temp;
+	}
+    delete iterate;
+	
+	ListArrayIterator<String>* iterate = viable_words->iterator();
+	while(iterate->hasNext())
+	{
+		String* temp = iterate->next();
+		delete temp;
+	}
+    delete iterate;
+	
+	delete word;
+	delete curr_word;
+	delete word_guess;
+}
 
+void Password::addWord(String* word)
+{
+	if (all_words->sz == 0)
+	{
+		len = word->length();
+	}
+	else
+	{
+		if (len != word->length())
+			return NULL;
+	}
+	all_words->ListArray<String>::add(<String>* word);
+}
 
-
-
-
-
-
-
+void Password::guess(int try_password, int num_matches)
+{
+	int num_match = 0;
+	word_guess->Password::getOriginalWord(try_password);
+	
+	if (viable_words->ListArray<String>::size() == 0)
+		ListArrayIterator<String>* iterate = all_words->iterator();
+	else
+		ListArrayIterator<String>* iterate = viable_words->iterator();
+	while(iterate->hasNext())
+	{
+		String* temp = iterate->next();
+		num_match->Password::getNumMatches(temp,word_guess);
+		if (num_matches == num_match)
+		{
+			viable_words->ListArray<String>::add(temp);	
+		}
+	}
+	
+	delete temp;
+    delete iterate;
+}
 
 int Password::bestGuess()
 {
