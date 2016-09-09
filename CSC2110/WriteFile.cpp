@@ -1,5 +1,7 @@
 #include "WriteFile.h"
 #include <sstream>
+using CSC2110::String;
+using CSC2110::WriteFile;
 
 WriteFile::WriteFile(const char* file_name)
 {
